@@ -7,6 +7,12 @@ export default defineConfig({
             thresholds: {
                 "100": true,
             },
+            reporter: [
+                "text",
+                "json",
+                "html",
+                "json-summary",
+            ],
         },
     },
 })
