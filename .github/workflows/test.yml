@@ -1,12 +1,12 @@
 name: Test
 on:
 - push
-strategy:
-  matrix:
-    node-version: [16, 18, 20, 22]
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16, 18, 20, 22]
     steps:
     - name: Checkout
       uses: actions/checkout@v4
