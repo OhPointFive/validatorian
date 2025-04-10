@@ -4,6 +4,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    name: Test
     strategy:
       matrix:
         node-version: [16, 18, 20, 22]
