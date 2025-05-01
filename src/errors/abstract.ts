@@ -17,6 +17,16 @@ export abstract class ValidationError extends Error {
  */
 export type PathArray = (string | number | symbol)[];
 
+/** Replaces common strange characters with escaped versions. */
+function escapeString(key: string): string {
+    return key
+        .replace(/\\/g, "\\\\")
+        .replace(/"/g, "\\\"")
+        .replace(/\n/g, "\\n")
+        .replace(/\r/g, "\\r")
+        .replace(/\t/g, "\\t");
+}
+
 /**
  * Converts a path array to a readable string.
  *
@@ -32,21 +42,15 @@ export function pathArrayToString(path: (string | number | symbol)[]): string {
         // Casting to `any` because TypeScript seems confused about how it works.
         // Consider `typeof Object(Symbol()) === "symbol"` and `Symbol() instanceof Symbol`
         if (typeof p === "symbol" || (p as any) instanceof Symbol) {
-            return `[${p.toString()}]`;
+            const description = (p as Symbol).description;
+            return `[Symbol(${description ? `"${escapeString(description)}"` : ""})]`;
         }
 
         if (typeof p === "number") {
             return `[${p}]`;
         }
 
-        const escaped = p
-            .replace(/\\/g, "\\\\")
-            .replace(/"/g, "\\\"")
-            .replace(/\n/g, "\\n")
-            .replace(/\r/g, "\\r")
-            .replace(/\t/g, "\\t")
-            .replace(/\[/g, "\\[")
-            .replace(/\]/g, "\\]");
+        const escaped = escapeString(p);
 
         if (escaped !== p || p.includes(" ") || p.includes(".")) {
             return `["${escaped}"]`;
