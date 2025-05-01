@@ -20,27 +20,14 @@ module.exports = typescriptESLint.config(
             },
         },
         rules: {
-            "@typescript-eslint/no-unused-vars": [
-                "error",
-                {
-                    args: "none",
-                    caughtErrors: "none",
-                },
-            ],
+            // These are useful in tests to ensure something throws,
+            // and it's usually self-evident why they are being invoked.
+            "@typescript-eslint/ban-ts-comment": "off",
+
+            // If there's something of unknown type,
+            // the best way to put it into a string is to just include it
+            // in a template string, instead of trying to call `.toString()` on it.
             "@typescript-eslint/restrict-template-expressions": "off",
-
-            // I know what I"m doing
-            "@typescript-eslint/no-non-null-assertion": "off",
-            "@typescript-eslint/no-floating-promises": "off",
-            "@typescript-eslint/require-await": "off",
-            "@typescript-eslint/no-explicit-any": "off",
-            "@typescript-eslint/no-empty-function": "off",
-
-            // These unsafe rules seem to be giving VSCode trouble
-            "@typescript-eslint/no-unsafe-argument": "off",
-            "@typescript-eslint/no-unsafe-assignment": "off",
-            "@typescript-eslint/no-unsafe-member-access": "off",
-            "@typescript-eslint/no-unsafe-return": "off",
 
             "@stylistic/indent": [
                 "error",

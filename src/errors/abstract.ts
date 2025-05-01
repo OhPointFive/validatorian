@@ -41,7 +41,7 @@ export function pathArrayToString(path: (string | number | symbol)[]): string {
         // Both of these are typed as `symbol` in TypeScript, so we need to check both.
         // Casting to `any` because TypeScript seems confused about how it works.
         // Consider `typeof Object(Symbol()) === "symbol"` and `Symbol() instanceof Symbol`
-        if (typeof p === "symbol" || (p as any) instanceof Symbol) {
+        if (typeof p === "symbol" || (p as unknown as object) instanceof Symbol) {
             const description = (p as symbol).description;
             return `[Symbol(${description ? `"${escapeString(description)}"` : ""})]`;
         }
