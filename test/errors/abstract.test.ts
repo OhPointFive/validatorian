@@ -11,7 +11,12 @@ describe("ValidationError", () => {
     });
 
     test("should be an instance of Error", () => {
-        expect(Error.prototype.isPrototypeOf(ValidationError.prototype)).toBeTruthy();
+        expect(
+            Object.prototype.isPrototypeOf.call(
+                Error.prototype,
+                ValidationError.prototype,
+            ),
+        ).toBeTruthy();
     });
 
     test("should not be callable", () => {
@@ -50,7 +55,7 @@ describe("pathArrayToString", () => {
 
     test("should convert strange symbols to a string", () => {
         expect(pathArrayToString(
-            [Symbol("\n"), Symbol("\t"), Symbol("\r"), Symbol("\\"), Symbol("\"")]
+            [Symbol("\n"), Symbol("\t"), Symbol("\r"), Symbol("\\"), Symbol("\"")],
         ))
             .toEqual("[Symbol(\"\\n\")][Symbol(\"\\t\")][Symbol(\"\\r\")][Symbol(\"\\\\\")][Symbol(\"\\\"\")]");
     });
