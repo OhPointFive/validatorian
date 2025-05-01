@@ -13,6 +13,13 @@ describe("ValidationError", () => {
     test("should be an instance of Error", () => {
         expect(Error.prototype.isPrototypeOf(ValidationError.prototype)).toBeTruthy();
     });
+
+    test("should not be callable", () => {
+        expect(() => {
+            // @ts-expect-error
+            ValidationError("test");
+        }).toThrow();
+    });
 });
 
 describe("PathArray", () => {
