@@ -25,25 +25,25 @@ describe("SingleValidationError", () => {
 
     test("should have .expectedType and .actualValue", () => {
         const error = new SingleValidationError("string", 1);
-        expect(error.expectedType).toBe("string");
-        expect(error.actualValue).toBe(1);
+        expect(error.expectedType).toEqual("string");
+        expect(error.actualValue).toEqual(1);
     });
 
     test("should have .path and .pathString()", () => {
         const symbol = Symbol("symbol");
         const error = new SingleValidationError("string", 1, ["key", 2, symbol]);
         expect(error.path).toStrictEqual(["key", 2, symbol]);
-        expect(error.pathString()).toBe(".key[2][Symbol(\"symbol\")]");
+        expect(error.pathString()).toEqual(".key[2][Symbol(\"symbol\")]");
     });
 
     test("should have a readable message", () => {
         const error = new SingleValidationError("string", 1, ["key", 2, Symbol("symbol")]);
-        expect(error.message).toBe("Expected string but got 1 at .key[2][Symbol(\"symbol\")]");
+        expect(error.message).toEqual("Expected string but got 1 at .key[2][Symbol(\"symbol\")]");
     });
 
     test("should have a readable message without path", () => {
         const error = new SingleValidationError("string", 1);
-        expect(error.message).toBe("Expected string but got 1");
+        expect(error.message).toEqual("Expected string but got 1");
     });
 
     test("should have an extended path", () => {
@@ -64,11 +64,11 @@ describe("SingleValidationError", () => {
     test("should have a .pathString()", () => {
         const symbol = Symbol("symbol");
         const error = new SingleValidationError("string", 1, ["key", 2, symbol]);
-        expect(error.pathString()).toBe(".key[2][Symbol(\"symbol\")]");
+        expect(error.pathString()).toEqual(".key[2][Symbol(\"symbol\")]");
     });
 
     test("should have a .pathString() without path", () => {
         const error = new SingleValidationError("string", 1);
-        expect(error.pathString()).toBe("");
+        expect(error.pathString()).toEqual("");
     });
 });

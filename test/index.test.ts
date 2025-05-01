@@ -3,6 +3,6 @@ import { testFunction } from "../src";
 
 describe("index", () => {
     test("should return hello world string", () => {
-        expect(testFunction()).toBe("Hello, world!");
+        expect(testFunction()).toEqual("Hello, world!");
     });
 });

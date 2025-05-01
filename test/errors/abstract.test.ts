@@ -7,7 +7,7 @@ describe("ValidationError", () => {
     });
 
     test("should be a class", () => {
-        expect(typeof ValidationError).toBe("function");
+        expect(typeof ValidationError).toEqual("function");
     });
 
     test("should be an instance of Error", () => {
@@ -32,34 +32,34 @@ describe("PathArray", () => {
 
 describe("pathArrayToString", () => {
     test("should convert a simple string array to a string", () => {
-        expect(pathArrayToString(["key", "key2"])).toBe(".key.key2");
+        expect(pathArrayToString(["key", "key2"])).toEqual(".key.key2");
     });
 
     test("should convert a strange string array to a string", () => {
         expect(pathArrayToString(["\n", "\t", "\r", "\\", "\""]))
-            .toBe("[\"\\n\"][\"\\t\"][\"\\r\"][\"\\\\\"][\"\\\"\"]");
+            .toEqual("[\"\\n\"][\"\\t\"][\"\\r\"][\"\\\\\"][\"\\\"\"]");
     });
 
     test("should convert a number array to a string", () => {
-        expect(pathArrayToString([1, 2, 3])).toBe("[1][2][3]");
+        expect(pathArrayToString([1, 2, 3])).toEqual("[1][2][3]");
     });
 
     test("should convert a symbol array to a string", () => {
-        expect(pathArrayToString([Symbol("a"), Symbol(2), Symbol("c")])).toBe("[Symbol(\"a\")][Symbol(\"2\")][Symbol(\"c\")]");
+        expect(pathArrayToString([Symbol("a"), Symbol(2), Symbol("c")])).toEqual("[Symbol(\"a\")][Symbol(\"2\")][Symbol(\"c\")]");
     });
 
     test("should convert strange symbols to a string", () => {
         expect(pathArrayToString(
             [Symbol("\n"), Symbol("\t"), Symbol("\r"), Symbol("\\"), Symbol("\"")]
         ))
-            .toBe("[Symbol(\"\\n\")][Symbol(\"\\t\")][Symbol(\"\\r\")][Symbol(\"\\\\\")][Symbol(\"\\\"\")]");
+            .toEqual("[Symbol(\"\\n\")][Symbol(\"\\t\")][Symbol(\"\\r\")][Symbol(\"\\\\\")][Symbol(\"\\\"\")]");
     });
 
     test("should handle undescribed symbols", () => {
-        expect(pathArrayToString([Symbol()])).toBe("[Symbol()]");
+        expect(pathArrayToString([Symbol()])).toEqual("[Symbol()]");
     });
 
     test("should handle a mixed array", () => {
-        expect(pathArrayToString([1, "a", Symbol("description")])).toBe("[1].a[Symbol(\"description\")]");
+        expect(pathArrayToString([1, "a", Symbol("description")])).toEqual("[1].a[Symbol(\"description\")]");
     });
 });
