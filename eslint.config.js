@@ -63,4 +63,11 @@ module.exports = typescriptESLint.config(
             ],
         },
     },
+    {
+        files: ["test/**/*.test.ts"],
+        rules: {
+            // Tests often have unused variables to make sure type checking passes.
+            "@typescript-eslint/no-unused-vars": "off",
+        },
+    }
 );
