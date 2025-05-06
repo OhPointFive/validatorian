@@ -68,6 +68,8 @@ module.exports = typescriptESLint.config(
         rules: {
             // Tests often have unused variables to make sure type checking passes.
             "@typescript-eslint/no-unused-vars": "off",
+            // Tests use empty arrow functions a value to be validated.
+            "@typescript-eslint/no-empty-function": "off",
         },
     }
 );
