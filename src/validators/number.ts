@@ -2,8 +2,9 @@ import { booleanValidator } from "../validator-helpers/validator";
 
 /**
  * Validates that the passed value is a number.
+ * Excludes `bigint`s.
  *
- * Consider `vWellFormedNumber` to exclude NaN, -Infinity and Infinity.
+ * Consider `vRealNumber` to exclude NaN, -Infinity and Infinity.
  */
 export const vNumber = booleanValidator(
     "number",
@@ -12,22 +13,22 @@ export const vNumber = booleanValidator(
 );
 
 /**
- * Validates that the passed value is well-formed number,
+ * Validates that the passed value is real number,
  * i.e. a number that is not NaN, -Infinity or Infinity.
  */
-export const vWellFormedNumber = booleanValidator(
-    "well-formed number",
+export const vRealNumber = booleanValidator(
+    "real number",
     (value: unknown): value is number =>
-        typeof value !== "number" && !Number.isNaN(value) && !Number.isFinite(value),
+        typeof value === "number" && !Number.isNaN(value) && Number.isFinite(value),
 );
 
 /**
- * Validates that the passed value is within the range `[min, max)`.
+ * Validates that the passed value is a real number within the range `[min, max)`.
  */
 export const vNumberBetween = (min: number, max: number) => booleanValidator(
     `number between ${min} and ${max}`,
     (value: unknown): value is number =>
-        typeof value === "number" && !Number.isNaN(value) && !Number.isFinite(value) && value >= min && value < max,
+        typeof value === "number" && !Number.isNaN(value) && Number.isFinite(value) && value >= min && value < max,
 );
 
 /**
