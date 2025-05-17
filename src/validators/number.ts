@@ -78,3 +78,14 @@ export const vNonNegativeInteger = booleanValidator(
     (value: unknown): value is number =>
         typeof value === "number" && Number.isSafeInteger(value) && value >= 0,
 );
+
+/**
+ * Validates that the passed value is an integer in the range `[min, max)`.
+ *
+ * Allows unsafe integers if the min or max is outside the safe integer range.
+ */
+export const vIntegerBetween = (min: number, max: number) => booleanValidator(
+    `integer between ${min} and ${max}`,
+    (value: unknown): value is number =>
+        typeof value === "number" && Number.isInteger(value) && value >= min && value < max,
+);
