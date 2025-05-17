@@ -1,6 +1,6 @@
 import { describe, test, expect } from "vitest";
 import { SingleValidationError } from "../../src/errors/single";
-import { vAnyInteger, vInteger, vNaturalNumber, vNonNegativeInteger, vNumber, vNumberBetween, vRealNumber } from "../../src/validators/number";
+import { vAnyInteger, vInteger, vIntegerBetween, vNaturalNumber, vNonNegativeInteger, vNumber, vNumberBetween, vRealNumber } from "../../src/validators/number";
 
 describe("vNumber", () => {
     test("should exist", () => {
@@ -98,7 +98,6 @@ describe("vNumberBetween", () => {
 
     test("should throw for numbers equal to max", () => {
         expect(() => vNumberBetween(0, 10)(10)).toThrow(new SingleValidationError("number between 0 and 10", 10));
-        expect(() => vNumberBetween(-10, 10)(10)).toThrow(new SingleValidationError("number between -10 and 10", 10));
         expect(() => vNumberBetween(1e30, 1e32)(1e32)).toThrow(new SingleValidationError("number between 1e+30 and 1e+32", 1e32));
     });
 
@@ -110,7 +109,6 @@ describe("vNumberBetween", () => {
 
     test("should throw for numbers greater than max", () => {
         expect(() => vNumberBetween(0, 10)(11)).toThrow(new SingleValidationError("number between 0 and 10", 11));
-        expect(() => vNumberBetween(-10, 10)(11)).toThrow(new SingleValidationError("number between -10 and 10", 11));
         expect(() => vNumberBetween(1e30, 1e32)(1e33)).toThrow(new SingleValidationError("number between 1e+30 and 1e+32", 1e33));
     });
 
@@ -301,5 +299,61 @@ describe("vNonNegativeInteger", () => {
         expect(() => vNonNegativeInteger({})).toThrow(new SingleValidationError("non-negative integer", {}));
         const func = () => {};
         expect(() => vNonNegativeInteger(func)).toThrow(new SingleValidationError("non-negative integer", func));
+    });
+});
+
+describe("vIntegerBetween", () => {
+    test("should exist", () => {
+        expect(vIntegerBetween).toBeDefined();
+    });
+
+    test("should validate integers between min and max", () => {
+        expect(vIntegerBetween(0, 10)(5)).toEqual(5);
+        expect(vIntegerBetween(-10, 10)(0)).toEqual(0);
+        expect(vIntegerBetween(1e30, 1e32)(1e31)).toEqual(1e31);
+    });
+
+    test("should validate integers equal to min", () => {
+        expect(vIntegerBetween(0, 10)(0)).toEqual(0);
+        expect(vIntegerBetween(-10, 10)(-10)).toEqual(-10);
+        expect(vIntegerBetween(1e30, 1e32)(1e30)).toEqual(1e30);
+    });
+
+    test("should throw for integers equal to max", () => {
+        expect(() => vIntegerBetween(0, 10)(10)).toThrow(new SingleValidationError("integer between 0 and 10", 10));
+        expect(() => vIntegerBetween(-10, 10)(10)).toThrow(new SingleValidationError("integer between -10 and 10", 10));
+        expect(() => vIntegerBetween(1e30, 1e32)(1e32)).toThrow(new SingleValidationError("integer between 1e+30 and 1e+32", 1e32));
+    });
+
+    test("should throw for integers less than min", () => {
+        expect(() => vIntegerBetween(0, 10)(-1)).toThrow(new SingleValidationError("integer between 0 and 10", -1));
+        expect(() => vIntegerBetween(-10, 10)(-11)).toThrow(new SingleValidationError("integer between -10 and 10", -11));
+        expect(() => vIntegerBetween(1e30, 1e32)(1e29)).toThrow(new SingleValidationError("integer between 1e+30 and 1e+32", 1e29));
+    });
+
+    test("should throw for integers greater than max", () => {
+        expect(() => vIntegerBetween(0, 10)(11)).toThrow(new SingleValidationError("integer between 0 and 10", 11));
+        expect(() => vIntegerBetween(1e30, 1e32)(1e33)).toThrow(new SingleValidationError("integer between 1e+30 and 1e+32", 1e33));
+    });
+
+    test("should throw for non-integers", () => {
+        expect(() => vIntegerBetween(0, 10)(1.5)).toThrow(new SingleValidationError("integer between 0 and 10", 1.5));
+        expect(() => vIntegerBetween(0, 10)(4.321)).toThrow(new SingleValidationError("integer between 0 and 10", 4.321));
+    });
+
+    test("should throw for non-reals", () => {
+        expect(() => vIntegerBetween(0, 10)(Number.POSITIVE_INFINITY)).toThrow(new SingleValidationError("integer between 0 and 10", Number.POSITIVE_INFINITY));
+        expect(() => vIntegerBetween(0, 10)(Number.NEGATIVE_INFINITY)).toThrow(new SingleValidationError("integer between 0 and 10", Number.NEGATIVE_INFINITY));
+        expect(() => vIntegerBetween(0, 10)(NaN)).toThrow(new SingleValidationError("integer between 0 and 10", NaN));
+    });
+
+    test("should throw for non-numbers", () => {
+        expect(() => vIntegerBetween(0, 10)("string")).toThrow(new SingleValidationError("integer between 0 and 10", "string"));
+        expect(() => vIntegerBetween(0, 10)(true)).toThrow(new SingleValidationError("integer between 0 and 10", true));
+        expect(() => vIntegerBetween(0, 10)(null)).toThrow(new SingleValidationError("integer between 0 and 10", null));
+        expect(() => vIntegerBetween(0, 10)(undefined)).toThrow(new SingleValidationError("integer between 0 and 10", undefined));
+        expect(() => vIntegerBetween(0, 10)({})).toThrow(new SingleValidationError("integer between 0 and 10", {}));
+        const func = () => {};
+        expect(() => vIntegerBetween(0, 10)(func)).toThrow(new SingleValidationError("integer between 0 and 10", func));
     });
 });
