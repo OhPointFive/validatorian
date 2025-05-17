@@ -32,12 +32,14 @@ export const vNumberBetween = (min: number, max: number) => booleanValidator(
 );
 
 /**
- * Validates that the passed value is a safe integer.
+ * Validates that the passed value is an integer
+ * in [`Number.MIN_SAFE_INTEGER`, `Number.MAX_SAFE_INTEGER`].
  *
- * Rejects integers that are outside the bounds of exact representation,
- * and instead are just floating point numbers too large to have a fractional part.
- *
+ * Integers outside these bounds may only be integers due to
+ * rounding in floating point.
  * If you want to allow these, use `vAnyInteger` instead.
+ *
+ * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isSafeInteger
  */
 export const vInteger = booleanValidator(
     "integer",
@@ -49,8 +51,7 @@ export const vInteger = booleanValidator(
  * Validates that the passed value is an integer,
  * even if it's outside `[Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER]`.
  *
- * These numbers are represented in floating point,
- * but too large to have a fractional part.
+ * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isSafeInteger
  */
 export const vAnyInteger = booleanValidator(
     "any integer",
