@@ -18,6 +18,12 @@ describe("vConst", () => {
         expect(vConst(symbol)(symbol)).toEqual(symbol);
     });
 
+    test("should validate NaN", () => {
+        expect(vConst(NaN)(NaN)).toEqual(NaN);
+        expect(() => vConst(NaN)(1)).toThrow(new SingleValidationError("exact number `NaN`", 1));
+        expect(() => vConst(1)(NaN)).toThrow(new SingleValidationError("exact number `1`", NaN));
+    });
+
     test("should throw error for incorrect types", () => {
         expect(() => vConst("test")(1)).toThrow(new SingleValidationError("exact string `test`", 1));
         expect(() => vConst(1)("test")).toThrow(new SingleValidationError("exact number `1`", "test"));
