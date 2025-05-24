@@ -7,7 +7,7 @@ describe("vConst", () => {
         expect(vConst).toBeDefined();
     });
 
-    test("should constants", () => {
+    test("should validate constants", () => {
         expect(vConst("test")("test")).toEqual("test");
         expect(vConst(1)(1)).toEqual(1);
         const symbol = Symbol("test");
