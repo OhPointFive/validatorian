@@ -24,10 +24,14 @@ module.exports = typescriptESLint.config(
             // and it's usually self-evident why they are being invoked.
             "@typescript-eslint/ban-ts-comment": "off",
 
-            // If there's something of unknown type,
-            // the best way to put it into a string is to just include it
-            // in a template string, instead of trying to call `.toString()` on it.
-            "@typescript-eslint/restrict-template-expressions": "off",
+            "@typescript-eslint/restrict-template-expressions": [
+                "error",
+                {
+                    allowNumber: true,
+                    allowBoolean: true,
+                    allowNullish: true,
+                },
+            ],
 
             "@stylistic/indent": [
                 "error",

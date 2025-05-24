@@ -14,9 +14,9 @@ export class SingleValidationError extends ValidationError {
     ) {
         let message;
         if (path) {
-            message = `Expected ${expectedType} but got ${actualValue} at ${pathArrayToString(path)}`;
+            message = `Expected ${expectedType} but got ${String(actualValue)} at ${pathArrayToString(path)}`;
         } else {
-            message = `Expected ${expectedType} but got ${actualValue}`;
+            message = `Expected ${expectedType} but got ${String(actualValue)}`;
         }
         super(message);
     }
