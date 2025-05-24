@@ -46,4 +46,17 @@ describe("vConst", () => {
         const symbol2 = Symbol("test2");
         expect(() => vConst(symbol)(symbol2)).toThrow(new SingleValidationError("exact symbol `Symbol(test)`", symbol2));
     });
+
+    test("should work with non-constant values", () => {
+        // This isn't what the validator is intended for,
+        // but people might use it this way and it should still work.
+        const number = Math.random();
+        expect(vConst(number)(number)).toEqual(number);
+        expect(() => vConst(number)(2)).toThrow(new SingleValidationError(`exact number \`${number}\``, 2));
+        expect(() => vConst(2)(number)).toThrow(new SingleValidationError("exact number `2`", number));
+        const string = Math.random().toString();
+        expect(vConst(string)(string)).toEqual(string);
+        expect(() => vConst(string)("2")).toThrow(new SingleValidationError(`exact string \`${string}\``, "2"));
+        expect(() => vConst("2")(string)).toThrow(new SingleValidationError("exact string `2`", string));
+    });
 });
