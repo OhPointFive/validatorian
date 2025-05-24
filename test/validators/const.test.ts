@@ -59,4 +59,18 @@ describe("vConst", () => {
         expect(() => vConst(string)("2")).toThrow(new SingleValidationError(`exact string \`${string}\``, "2"));
         expect(() => vConst("2")(string)).toThrow(new SingleValidationError("exact string `2`", string));
     });
+
+    test("should pass type checking", () => {
+        const s1: "test" = vConst("test")("test");
+        const s2: string = vConst("test")("test");
+        const s3: "test" | "test2" = vConst("test")("test");
+
+        // @ts-expect-error
+        const s4: "test2" = vConst("test")("test");
+
+        // @ts-expect-error
+        const s5: number = vConst("test")("test");
+
+        const s6: number = vConst(7)(7);
+    });
 });
