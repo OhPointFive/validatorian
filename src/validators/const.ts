@@ -6,4 +6,4 @@ import { booleanValidator } from "../validator-helpers/validator";
  * For example, `vConst("Example")` will make a validator
  * that only accepts the string `"Example"`.
  */
-export const vConst = <const T>(value: T) => booleanValidator(`Exact ${typeof value} \`${value}\``, (v: unknown): v is T => v === value);
+export const vConst = <const T>(value: T) => booleanValidator(`Exact ${typeof value} \`${String(value)}\``, (v: unknown): v is T => v === value);
