@@ -41,6 +41,13 @@ describe("vNumber", () => {
         const func = () => {};
         expect(() => vNumber(func)).toThrow(new SingleValidationError("number", func));
     });
+
+    test("should pass type checking", () => {
+        const n1: number = vNumber(1 as unknown);
+
+        // @ts-expect-error
+        const n2: string = vNumber(1 as unknown);
+    });
 });
 
 describe("vRealNumber", () => {
@@ -76,6 +83,13 @@ describe("vRealNumber", () => {
         expect(() => vRealNumber({})).toThrow(new SingleValidationError("real number", {}));
         const func = () => {};
         expect(() => vRealNumber(func)).toThrow(new SingleValidationError("real number", func));
+    });
+
+    test("should pass type checking", () => {
+        const n1: number = vRealNumber(1 as unknown);
+
+        // @ts-expect-error
+        const n2: string = vRealNumber(1 as unknown);
     });
 });
 
@@ -127,6 +141,13 @@ describe("vNumberBetween", () => {
         const func = () => {};
         expect(() => vNumberBetween(0, 10)(func)).toThrow(new SingleValidationError("number between 0 and 10", func));
     });
+
+    test("should pass type checking", () => {
+        const n1: number = vNumberBetween(0, 2)(1 as unknown);
+
+        // @ts-expect-error
+        const n2: string = vNumberBetween(0, 2)(1 as unknown);
+    });
 });
 
 describe("vInteger", () => {
@@ -167,6 +188,13 @@ describe("vInteger", () => {
         expect(() => vInteger({})).toThrow(new SingleValidationError("integer", {}));
         const func = () => {};
         expect(() => vInteger(func)).toThrow(new SingleValidationError("integer", func));
+    });
+
+    test("should pass type checking", () => {
+        const n1: number = vInteger(1 as unknown);
+
+        // @ts-expect-error
+        const n2: string = vInteger(1 as unknown);
     });
 });
 
@@ -212,6 +240,13 @@ describe("vAnyInteger", () => {
         const func = () => {};
         expect(() => vAnyInteger(func)).toThrow(new SingleValidationError("any integer", func));
     });
+
+    test("should pass type checking", () => {
+        const n1: number = vAnyInteger(1 as unknown);
+
+        // @ts-expect-error
+        const n2: string = vAnyInteger(1 as unknown);
+    });
 });
 
 describe("vNaturalNumber", () => {
@@ -256,6 +291,13 @@ describe("vNaturalNumber", () => {
         const func = () => {};
         expect(() => vNaturalNumber(func)).toThrow(new SingleValidationError("natural number", func));
     });
+
+    test("should pass type checking", () => {
+        const n1: number = vNaturalNumber(1 as unknown);
+
+        // @ts-expect-error
+        const n2: string = vNaturalNumber(1 as unknown);
+    });
 });
 
 describe("vNonNegativeInteger", () => {
@@ -299,6 +341,13 @@ describe("vNonNegativeInteger", () => {
         expect(() => vNonNegativeInteger({})).toThrow(new SingleValidationError("non-negative integer", {}));
         const func = () => {};
         expect(() => vNonNegativeInteger(func)).toThrow(new SingleValidationError("non-negative integer", func));
+    });
+
+    test("should pass type checking", () => {
+        const n1: number = vNonNegativeInteger(1 as unknown);
+
+        // @ts-expect-error
+        const n2: string = vNonNegativeInteger(1 as unknown);
     });
 });
 
@@ -355,5 +404,12 @@ describe("vIntegerBetween", () => {
         expect(() => vIntegerBetween(0, 10)({})).toThrow(new SingleValidationError("integer between 0 and 10", {}));
         const func = () => {};
         expect(() => vIntegerBetween(0, 10)(func)).toThrow(new SingleValidationError("integer between 0 and 10", func));
+    });
+
+    test("should pass type checking", () => {
+        const n1: number = vIntegerBetween(0, 2)(1 as unknown);
+
+        // @ts-expect-error
+        const n2: string = vIntegerBetween(0, 2)(1 as unknown);
     });
 });

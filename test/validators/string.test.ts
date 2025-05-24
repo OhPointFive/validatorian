@@ -22,6 +22,13 @@ describe("vString", () => {
         const func = () => {};
         expect(() => vString(func)).toThrow(new SingleValidationError("string", func));
     });
+
+    test("should pass type checking", () => {
+        const s1: string = vString("test" as unknown);
+
+        // @ts-expect-error
+        const s2: number = vString("test" as unknown);
+    });
 });
 
 describe("vNonEmptyString", () => {
@@ -46,6 +53,13 @@ describe("vNonEmptyString", () => {
         expect(() => vNonEmptyString({})).toThrow(new SingleValidationError("non-empty string", {}));
         const func = () => {};
         expect(() => vNonEmptyString(func)).toThrow(new SingleValidationError("non-empty string", func));
+    });
+
+    test("should pass type checking", () => {
+        const s1: string = vNonEmptyString("test" as unknown);
+
+        // @ts-expect-error
+        const s2: number = vNonEmptyString("test" as unknown);
     });
 });
 
@@ -84,5 +98,12 @@ describe("vStringOfLength", () => {
         expect(() => vStringOfLength(3, 5)({})).toThrow(new SingleValidationError("string of length [3, 5]", {}));
         const func = () => {};
         expect(() => vStringOfLength(3, 5)(func)).toThrow(new SingleValidationError("string of length [3, 5]", func));
+    });
+
+    test("should pass type checking", () => {
+        const s1: string = vStringOfLength(3, 5)("test" as unknown);
+
+        // @ts-expect-error
+        const s2: number = vStringOfLength(3, 5)("test" as unknown);
     });
 });
