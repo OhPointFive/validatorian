@@ -74,6 +74,8 @@ module.exports = typescriptESLint.config(
             "@typescript-eslint/no-unused-vars": "off",
             // Tests use empty arrow functions a value to be validated.
             "@typescript-eslint/no-empty-function": "off",
+            // We want to test if things actually return undefined.
+            "@typescript-eslint/no-confusing-void-expression": "off",
         },
     }
 );
