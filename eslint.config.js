@@ -20,10 +20,6 @@ module.exports = typescriptESLint.config(
             },
         },
         rules: {
-            // These are useful in tests to ensure something throws,
-            // and it's usually self-evident why they are being invoked.
-            "@typescript-eslint/ban-ts-comment": "off",
-
             "@typescript-eslint/restrict-template-expressions": [
                 "error",
                 {
@@ -70,6 +66,8 @@ module.exports = typescriptESLint.config(
     {
         files: ["test/**/*.test.ts"],
         rules: {
+            // These are useful in tests to ensure something throws.
+            "@typescript-eslint/ban-ts-comment": "off",
             // Tests often have unused variables to make sure type checking passes.
             "@typescript-eslint/no-unused-vars": "off",
             // Tests use empty arrow functions a value to be validated.
