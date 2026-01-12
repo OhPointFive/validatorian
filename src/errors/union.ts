@@ -20,7 +20,7 @@ export class UnionValidationError extends ValidationError {
         let message;
         const combinedErrors = errors.map(e => indent(e.message)).join("\n");
         const types = errors.map(e => e instanceof SingleValidationError ? e.expectedType : undefined).filter(type => type !== undefined);
-        const shortTypes = types.length === combinedErrors.length ? types.join(", ") : "multiple types";
+        const shortTypes = types.length === errors.length ? types.join(", ") : "multiple types";
         if (path) {
             message = `Expected one of ${shortTypes} at ${pathArrayToString(path)} but got an error for every option:\n${combinedErrors}`;
         } else {
