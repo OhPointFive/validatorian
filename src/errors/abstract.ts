@@ -4,7 +4,7 @@
  * Errors throw by validatorian are always subtypes of ValidationError.
  */
 export abstract class ValidationError extends Error {
-    public abstract withExtendedPath(extendWith: string): ValidationError;
+    public abstract withExtendedPath(extendWith: PathArray[number]): ValidationError;
 }
 
 /**

@@ -27,7 +27,7 @@ export class SingleValidationError extends ValidationError {
      * Path extensions are put at the _start_ of the path,
      * so a path like `.key` would become `.key2.key`.
      */
-    public withExtendedPath(pathComponent: PathArray[number]): SingleValidationError {
+    public override withExtendedPath(pathComponent: PathArray[number]): SingleValidationError {
         return new SingleValidationError(this.expectedType, this.actualValue, this.path ? [pathComponent, ...this.path] : [pathComponent]);
     }
 
