@@ -13,6 +13,11 @@ import { SingleValidationError } from "../errors/single";
 export type Validator<T> = (value: unknown) => T;
 
 /**
+ * What the return type of a `Validator` is.
+ */
+export type ValidatedBy<T extends Validator<unknown>> = ReturnType<T>;
+
+/**
  * Casts the passed parameter to a `Validator`.
  *
  * This just returns the value passed in,
