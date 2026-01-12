@@ -51,14 +51,14 @@ describe("UnionValidationError", () => {
         const e1 = new SingleValidationError("string", null);
         const e2 = new SingleValidationError("number", null);
         const error = new UnionValidationError([e1, e2], 1, ["key", 2, Symbol("symbol")]);
-        expect(error.message).toEqual("Expected one of string, number at .key[2][Symbol(\"symbol\")] but got an error for every option:\n  Expected string but got null\n  Expected number but got null");
+        expect(error.message).toEqual("Expected one of string | number at .key[2][Symbol(\"symbol\")] but got an error for every option:\n  Expected string but got null\n  Expected number but got null");
     });
 
     test("should have a readable message without path", () => {
         const e1 = new SingleValidationError("string", null);
         const e2 = new SingleValidationError("number", null);
         const error = new UnionValidationError([e1, e2], 1);
-        expect(error.message).toEqual("Expected one of string, number but got an error for every option:\n  Expected string but got null\n  Expected number but got null");
+        expect(error.message).toEqual("Expected one of string | number but got an error for every option:\n  Expected string but got null\n  Expected number but got null");
     });
 
     test("should have an extended path", () => {
@@ -122,7 +122,7 @@ describe("UnionValidationError", () => {
         expect(top.message).toEqual(
             "Expected one of multiple types at .key[2][Symbol(\"symbol\")] but got an error for every option:\n"
             + "  Expected string but got null\n"
-            + "  Expected one of number, boolean but got an error for every option:\n"
+            + "  Expected one of number | boolean but got an error for every option:\n"
             + "    Expected number but got null\n"
             + "    Expected boolean but got null",
         );
