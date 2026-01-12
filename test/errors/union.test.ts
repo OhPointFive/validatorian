@@ -102,4 +102,29 @@ describe("UnionValidationError", () => {
         const error = new UnionValidationError([e1, e2], 1);
         expect(error.pathString()).toEqual("");
     });
+
+    test("should format message when a sub error is another union", () => {
+        const nested = new UnionValidationError(
+            [
+                new SingleValidationError("number", null),
+                new SingleValidationError("boolean", null),
+            ],
+            1,
+        );
+        const top = new UnionValidationError(
+            [
+                new SingleValidationError("string", null),
+                nested,
+            ],
+            1,
+            ["key", 2, Symbol("symbol")],
+        );
+        expect(top.message).toEqual(
+            "Expected one of multiple types at .key[2][Symbol(\"symbol\")] but got an error for every option:\n"
+            + "  Expected string but got null\n"
+            + "  Expected one of multiple types but got an error for every option:\n"
+            + "    Expected number but got null\n"
+            + "    Expected boolean but got null",
+        );
+    });
 });

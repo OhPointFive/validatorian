@@ -1,6 +1,10 @@
 import { pathArrayToString, ValidationError, type PathArray } from "./abstract";
 import { SingleValidationError } from "./single";
 
+function indent(text: string): string {
+    return text.split("\n").map(line => `  ${line}`).join("\n");
+}
+
 /**
  * Represents a failure to validate something that is allowed to be one of multiple types.
  */
@@ -14,7 +18,7 @@ export class UnionValidationError extends ValidationError {
         public readonly path?: PathArray | undefined,
     ) {
         let message;
-        const combinedErrors = errors.map(e => `  ${e.message}`).join("\n");
+        const combinedErrors = errors.map(e => indent(e.message)).join("\n");
         const types = errors.map(e => e instanceof SingleValidationError ? e.expectedType : undefined).filter(type => type !== undefined);
         const shortTypes = types.length === combinedErrors.length ? types.join(", ") : "multiple types";
         if (path) {
