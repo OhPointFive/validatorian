@@ -29,7 +29,7 @@ type ObjectValidatorTemplate<T extends object> = {
  * For example:
  * ```ts
  * const vTest = vObject({
- *    number: optional(vNumber),
+ *    number: vOptional(vNumber),
  * });
  *
  * const result = vTest({
