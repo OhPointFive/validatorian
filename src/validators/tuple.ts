@@ -31,10 +31,7 @@ export const vTuple = <T extends unknown[]>(...validators: { [K in keyof T]: Val
  * If you want to be less restrictive, use `vTuple`.
  */
 export const vStrictTuple = <T extends unknown[]>(...validators: { [K in keyof T]: Validator<T[K]> }) => validator<T>((value: unknown) => {
-    if (!Array.isArray(value)) {
-        throw new SingleValidationError("tuple", value);
-    }
-    if (value.length !== validators.length) {
+    if (!Array.isArray(value) || value.length !== validators.length) {
         throw new SingleValidationError(`tuple of length ${validators.length}`, value);
     }
     const result = validators.map((validator, index) => validator(value[index])) as T;

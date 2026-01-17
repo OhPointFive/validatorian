@@ -59,22 +59,22 @@ describe("vStrictTuple", () => {
     });
 
     test("should throw for too short arrays", () => {
-        expect(() => vStrictTuple(vNumber, vString)([1])).toThrow(new SingleValidationError("strict tuple", [1]));
-        expect(() => vStrictTuple(vNumber, vString, vNumber)([1, "test"])).toThrow(new SingleValidationError("strict tuple", [1, "test"]));
-        expect(() => vStrictTuple(vNumber)([])).toThrow(new SingleValidationError("strict tuple", []));
+        expect(() => vStrictTuple(vNumber, vString)([1])).toThrow(new SingleValidationError("tuple of length 2", [1]));
+        expect(() => vStrictTuple(vNumber, vString, vNumber)([1, "test"])).toThrow(new SingleValidationError("tuple of length 3", [1, "test"]));
+        expect(() => vStrictTuple(vNumber)([])).toThrow(new SingleValidationError("tuple of length 1", []));
     });
 
     test("should throw for too long arrays", () => {
-        expect(() => vStrictTuple(vNumber, vString)([1, "test", "extra"])).toThrow(new SingleValidationError("strict tuple", [1, "test", "extra"]));
-        expect(() => vStrictTuple(vNumber)([1, 2])).toThrow(new SingleValidationError("strict tuple", [1, 2]));
+        expect(() => vStrictTuple(vNumber, vString)([1, "test", "extra"])).toThrow(new SingleValidationError("tuple of length 2", [1, "test", "extra"]));
+        expect(() => vStrictTuple(vNumber)([1, 2])).toThrow(new SingleValidationError("tuple of length 1", [1, 2]));
     });
 
     test("should throw for non-arrays", () => {
-        expect(() => vStrictTuple(vNumber, vString)(1)).toThrow(new SingleValidationError("strict tuple", 1));
-        expect(() => vStrictTuple(vNumber, vString)("test")).toThrow(new SingleValidationError("strict tuple", "test"));
-        expect(() => vStrictTuple(vNumber, vString)(null)).toThrow(new SingleValidationError("strict tuple", null));
-        expect(() => vStrictTuple(vNumber, vString)(undefined)).toThrow(new SingleValidationError("strict tuple", undefined));
-        expect(() => vStrictTuple(vNumber, vString)({})).toThrow(new SingleValidationError("strict tuple", {}));
+        expect(() => vStrictTuple(vNumber, vString)(1)).toThrow(new SingleValidationError("tuple of length 2", 1));
+        expect(() => vStrictTuple(vNumber, vString)("test")).toThrow(new SingleValidationError("tuple of length 2", "test"));
+        expect(() => vStrictTuple(vNumber, vString)(null)).toThrow(new SingleValidationError("tuple of length 2", null));
+        expect(() => vStrictTuple(vNumber, vString)(undefined)).toThrow(new SingleValidationError("tuple of length 2", undefined));
+        expect(() => vStrictTuple(vNumber, vString)({})).toThrow(new SingleValidationError("tuple of length 2", {}));
     });
 
     test("should throw for tuples with invalid items", () => {
