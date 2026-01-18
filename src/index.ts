@@ -1,4 +1,5 @@
 export * from "./validators/array";
+export * from "./validators/boolean";
 export * from "./validators/const";
 export * from "./validators/default";
 export * from "./validators/number";
