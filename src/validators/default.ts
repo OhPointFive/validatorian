@@ -37,6 +37,9 @@ export const vWithFallback = <T, U>(v: Validator<T>, fallback: U | ((originalVal
         return v(value);
     } catch (error) {
         if (error instanceof ValidationError) {
+            // Type casting is ok here.
+            // If the user passes something that's typeof is a function, but isn't callable,
+            // that's a strange thing they've done and they'll get a fairly clear error.
             return typeof fallback === "function" ? (fallback as (originalValue: unknown) => U)(value) : fallback;
         }
         throw error;
