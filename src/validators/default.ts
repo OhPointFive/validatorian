@@ -37,7 +37,7 @@ export const vWithFallback = <T, U>(v: Validator<T>, fallback: U | ((originalVal
         return v(value);
     } catch (error) {
         if (error instanceof ValidationError) {
-            return typeof fallback === "function" ? (fallback as () => T)() : fallback;
+            return typeof fallback === "function" ? (fallback as (originalValue: unknown) => U)(value) : fallback;
         }
         throw error;
     }
