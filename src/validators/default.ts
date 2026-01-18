@@ -1,5 +1,5 @@
 import { ValidationError } from "../errors/abstract";
-import { validator, type Validator } from "../validator-helpers/validator";
+import { transformingValidator, type Validator } from "../validator-helpers/validator";
 
 /**
  * Replaces null and undefined values with the specified default,
@@ -13,7 +13,7 @@ import { validator, type Validator } from "../validator-helpers/validator";
  * If you want to use the default value for any type that doesn't pass validation,
  * use `vWithFallback` instead.
  */
-export const vWithDefault = <T, U>(v: Validator<T>, defaultValue: U | (() => U)) => validator<T | U>((value: unknown) => {
+export const vWithDefault = <T, U>(v: Validator<T>, defaultValue: U | (() => U)) => transformingValidator<T | U>((value: unknown) => {
     if (value === null || value === undefined) {
         // Type casting is ok here.
         // If the user passes something that's typeof is a function, but isn't callable,
@@ -35,7 +35,7 @@ export const vWithDefault = <T, U>(v: Validator<T>, defaultValue: U | (() => U))
  * If you only want to use the fallback for `null` or `undefined`,
  * use `vWithDefault` instead.
  */
-export const vWithFallback = <T, U>(v: Validator<T>, fallback: U | ((originalValue: unknown) => U)) => validator<T | U>((value: unknown) => {
+export const vWithFallback = <T, U>(v: Validator<T>, fallback: U | ((originalValue: unknown) => U)) => transformingValidator<T | U>((value: unknown) => {
     try {
         return v(value);
     } catch (error) {

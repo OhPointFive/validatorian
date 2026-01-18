@@ -24,7 +24,7 @@ export type ValidatedBy<T extends Validator<unknown>> = ReturnType<T>;
  * but saves having to write an explicity type annotation
  * to tell TypeScript it's a `Validator`.
  */
-export function validator<T>(v: Validator<T>): Validator<T> {
+export function transformingValidator<T>(v: Validator<T>): Validator<T> {
     return v;
 }
 
@@ -33,9 +33,12 @@ export function validator<T>(v: Validator<T>): Validator<T> {
  * returning it if the passed function returns true
  * or throwing a `ValidationError` if it returns false.
  *
+ * If you want to potentially transform the passed value,
+ * use `transformingValidator` instead.
+ *
  * @param typeName The type name to output in errors when the value is invalid.
  */
-export function booleanValidator<T>(typeName: string, v: (value: unknown) => value is T): Validator<T> {
+export function validator<T>(typeName: string, v: (value: unknown) => value is T): Validator<T> {
     return (value: unknown) => {
         if (!v(value)) {
             throw new SingleValidationError(typeName, value);

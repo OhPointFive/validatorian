@@ -1,4 +1,4 @@
-import { booleanValidator } from "../validator-helpers/validator";
+import { validator } from "../validator-helpers/validator";
 
 /**
  * Validates that the passed value is a number.
@@ -6,7 +6,7 @@ import { booleanValidator } from "../validator-helpers/validator";
  *
  * Consider `vRealNumber` to exclude NaN, -Infinity and Infinity.
  */
-export const vNumber = booleanValidator(
+export const vNumber = validator(
     "number",
     (value: unknown): value is number =>
         typeof value === "number",
@@ -16,7 +16,7 @@ export const vNumber = booleanValidator(
  * Validates that the passed value is real number,
  * i.e. a number that is not NaN, -Infinity or Infinity.
  */
-export const vRealNumber = booleanValidator(
+export const vRealNumber = validator(
     "real number",
     (value: unknown): value is number =>
         typeof value === "number" && !Number.isNaN(value) && Number.isFinite(value),
@@ -25,7 +25,7 @@ export const vRealNumber = booleanValidator(
 /**
  * Validates that the passed value is a real number within the range `[min, max)`.
  */
-export const vNumberBetween = (min: number, max: number) => booleanValidator(
+export const vNumberBetween = (min: number, max: number) => validator(
     `number between ${min} and ${max}`,
     (value: unknown): value is number =>
         typeof value === "number" && !Number.isNaN(value) && Number.isFinite(value) && value >= min && value < max,
@@ -41,7 +41,7 @@ export const vNumberBetween = (min: number, max: number) => booleanValidator(
  *
  * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isSafeInteger
  */
-export const vInteger = booleanValidator(
+export const vInteger = validator(
     "integer",
     (value: unknown): value is number =>
         typeof value === "number" && Number.isSafeInteger(value),
@@ -53,7 +53,7 @@ export const vInteger = booleanValidator(
  *
  * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isSafeInteger
  */
-export const vAnyInteger = booleanValidator(
+export const vAnyInteger = validator(
     "any integer",
     (value: unknown): value is number =>
         typeof value === "number" && Number.isInteger(value),
@@ -63,7 +63,7 @@ export const vAnyInteger = booleanValidator(
  * Validates that the passed value is a natural number,
  * i.e. an integer in [1, Number.MAX_SAFE_INTEGER].
  */
-export const vNaturalNumber = booleanValidator(
+export const vNaturalNumber = validator(
     "natural number",
     (value: unknown): value is number =>
         typeof value === "number" && Number.isSafeInteger(value) && value > 0,
@@ -73,7 +73,7 @@ export const vNaturalNumber = booleanValidator(
  * Validates that the passed value is a non-negative integer,
  * i.e. an integer in [0, Number.MAX_SAFE_INTEGER].
  */
-export const vNonNegativeInteger = booleanValidator(
+export const vNonNegativeInteger = validator(
     "non-negative integer",
     (value: unknown): value is number =>
         typeof value === "number" && Number.isSafeInteger(value) && value >= 0,
@@ -84,7 +84,7 @@ export const vNonNegativeInteger = booleanValidator(
  *
  * Allows unsafe integers if the min or max is outside the safe integer range.
  */
-export const vIntegerBetween = (min: number, max: number) => booleanValidator(
+export const vIntegerBetween = (min: number, max: number) => validator(
     `integer between ${min} and ${max}`,
     (value: unknown): value is number =>
         typeof value === "number" && Number.isInteger(value) && value >= min && value < max,

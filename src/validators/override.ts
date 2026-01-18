@@ -1,4 +1,4 @@
-import { validator } from "../validator-helpers/validator";
+import { transformingValidator } from "../validator-helpers/validator";
 
 /**
  * Ignores the value to validate, and returns the specified override value.
@@ -8,7 +8,7 @@ import { validator } from "../validator-helpers/validator";
  * If you want the default value to be a function,
  * pass a function that returns a function.
  */
-export const vOverride = <T>(override: T | ((originalValue: unknown) => T)) => validator<T>((value: unknown) => {
+export const vOverride = <T>(override: T | ((originalValue: unknown) => T)) => transformingValidator<T>((value: unknown) => {
     if (typeof override === "function") {
         // Type casting is ok here.
         // If the user passes something that's typeof is a function, but isn't callable,

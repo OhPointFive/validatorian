@@ -1,5 +1,5 @@
 import { SingleValidationError } from "../errors/single";
-import { validator, type Validator } from "../validator-helpers/validator";
+import { transformingValidator, type Validator } from "../validator-helpers/validator";
 
 /**
  * Validates that the passed value is a tuple matching the specified format.
@@ -11,7 +11,7 @@ import { validator, type Validator } from "../validator-helpers/validator";
  * If the passed value is too long, any extra items are silent dropped.
  * If you want to require a specific length instead, use `vStrictTuple`.
  */
-export const vTuple = <T extends unknown[]>(...validators: { [K in keyof T]: Validator<T[K]> }) => validator<T>((value: unknown) => {
+export const vTuple = <T extends unknown[]>(...validators: { [K in keyof T]: Validator<T[K]> }) => transformingValidator<T>((value: unknown) => {
     if (!Array.isArray(value)) {
         throw new SingleValidationError("tuple", value);
     }
@@ -30,7 +30,7 @@ export const vTuple = <T extends unknown[]>(...validators: { [K in keyof T]: Val
  * If the passed value is too long, it does not pass validation.
  * If you want to be less restrictive, use `vTuple`.
  */
-export const vStrictTuple = <T extends unknown[]>(...validators: { [K in keyof T]: Validator<T[K]> }) => validator<T>((value: unknown) => {
+export const vStrictTuple = <T extends unknown[]>(...validators: { [K in keyof T]: Validator<T[K]> }) => transformingValidator<T>((value: unknown) => {
     if (!Array.isArray(value) || value.length !== validators.length) {
         throw new SingleValidationError(`tuple of length ${validators.length}`, value);
     }

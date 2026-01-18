@@ -1,5 +1,5 @@
 import { SingleValidationError } from "../errors/single";
-import { Validator, validator } from "../validator-helpers/validator";
+import { Validator, transformingValidator } from "../validator-helpers/validator";
 
 /**
  * The type of the template to be passed to `vObject`,
@@ -42,7 +42,7 @@ export const vObject = <const T extends object>(
     // `template` is marked as readonly, to prevent readonly from passing on to the output,
     // and we don't modify it anyway so it's accurate.
     template: ObjectValidatorTemplate<T>,
-) => validator<T>(
+) => transformingValidator<T>(
     (value: unknown) => {
         if (typeof value !== "object" || value === null) {
             throw new SingleValidationError("object", value);

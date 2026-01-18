@@ -1,4 +1,4 @@
-import { booleanValidator } from "../validator-helpers/validator";
+import { validator } from "../validator-helpers/validator";
 
 function exactNameOfValue(value: unknown): string {
     if (value === null) {
@@ -18,7 +18,7 @@ function exactNameOfValue(value: unknown): string {
  * For example, `vConst("Example")` will make a validator
  * that only accepts the string `"Example"`.
  */
-export const vConst = <const T>(value: T) => booleanValidator(
+export const vConst = <const T>(value: T) => validator(
     exactNameOfValue(value),
     (v: unknown): v is T =>
         v === value

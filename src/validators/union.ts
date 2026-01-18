@@ -1,6 +1,6 @@
 import { ValidationError } from "../errors/abstract";
 import { UnionValidationError } from "../errors/union";
-import { validator, type ValidatedBy, type Validator } from "../validator-helpers/validator";
+import { transformingValidator, type ValidatedBy, type Validator } from "../validator-helpers/validator";
 
 /**
  * Validates that the passed value fits one of the specified validators.
@@ -14,7 +14,7 @@ import { validator, type ValidatedBy, type Validator } from "../validator-helper
  * const result2: number | string = vNumberOrString("test");
  * ```
  */
-export const vUnion = <T extends Validator<unknown>[]>(...validators: T) => validator<ValidatedBy<T[number]>>(
+export const vUnion = <T extends Validator<unknown>[]>(...validators: T) => transformingValidator<ValidatedBy<T[number]>>(
     (value: unknown) => {
         const errors: ValidationError[] = [];
         for (const validator of validators) {

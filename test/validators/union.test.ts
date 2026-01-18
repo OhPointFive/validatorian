@@ -5,7 +5,7 @@ import { vString } from "../../src/validators/string";
 import { vNull, vTrue, vFalse } from "../../src/validators/const";
 import { UnionValidationError } from "../../src/errors/union";
 import { SingleValidationError } from "../../src/errors/single";
-import { validator, type Validator } from "../../src/validator-helpers/validator";
+import { transformingValidator, type Validator } from "../../src/validator-helpers/validator";
 
 describe("vUnion", () => {
     test("should exist", () => {
@@ -24,7 +24,7 @@ describe("vUnion", () => {
     });
 
     test("should short circuit on first passing validator", () => {
-        const v = vUnion(vNumber, validator(() => expect.fail("Should not be called")));
+        const v = vUnion(vNumber, transformingValidator(() => expect.fail("Should not be called")));
         expect(v(1)).toEqual(1);
     });
 
