@@ -7,7 +7,8 @@ import { validator, type Validator } from "../validator-helpers/validator";
  *
  * If a function is passed as the default value,
  * it's called with no arguments to generate the default value.
- * If you want the default value to be a function, pass a function that returns a function.
+ * If you want the default value to be a function,
+ * pass a function that returns a function.
  *
  * If you want to use the default value for any type that doesn't pass validation,
  * use `vWithFallback` instead.
@@ -28,6 +29,8 @@ export const vWithDefault = <T, U>(v: Validator<T>, defaultValue: U | (() => U))
  *
  * If a function is passed as the fallback value,
  * it's called with the original value as an argument.
+ * If you want the default value to be a function,
+ * pass a function that returns a function.
  *
  * If you only want to use the fallback for `null` or `undefined`,
  * use `vWithDefault` instead.
