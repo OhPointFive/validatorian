@@ -2,18 +2,17 @@
     "name": "validatorian",
     "version": "0.0.1",
     "description": "An ergonomic, flexible, type-safe validator.",
-    "main": "dist/index.js",
     "scripts": {
         "build": "tsc",
+        "prepare": "npm run build",
         "lint": "eslint .",
         "fix": "eslint . --fix",
         "test": "tsc -p ./test && vitest run",
         "coverage": "vitest run --coverage"
     },
-    "files": [
-        "dist",
-        "src"
-    ],
+    "main": "dist/index.js",
+    "files": ["dist"],
+    "types": "dist/index.d.ts",
     "author": "OhPointFive",
     "license": "MIT",
     "devDependencies": {
